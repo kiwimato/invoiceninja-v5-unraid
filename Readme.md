@@ -13,6 +13,7 @@ To properly use InvoiceNinja you'll have to import the certificate in your brows
 I strongly recommend using LetsEncrypt or SWAG on UnRAID and then you can simply create/overwrite `invoiceninja.crt` with `fullchain.pem` and also the same thing for the key, of course.
 Note: `APP_URL` env variable should be the form of `https://domain.com[:port]`. For example: `https://supercool.com:8443`
 
+
 ## Upgrade from v4 to v5
 If you already have Invoice Ninja v4 on UnRAID:
    * Run this image on a whole new database while providing credentials `IN_USER_EMAIL` and `IN_PASSWORD` which match the v4 one. 
