@@ -27,6 +27,6 @@ jobs:
         run: |
           echo ${{ github.ref }}
           docker buildx build --push \
-            --tag maihai/invoiceninja_v5:${{ github.ref == 'refs/heads/master' && 'latest' || 'test' }} \
+            --tag maihai/invoiceninja_v5:${{ github.ref == 'refs/heads/master' && 'migrate' || 'test' }} \
             --platform linux/amd64 .
 
