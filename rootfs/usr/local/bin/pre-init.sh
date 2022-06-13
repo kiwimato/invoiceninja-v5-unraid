@@ -21,6 +21,8 @@ php artisan config:cache
 
 /usr/local/bin/genssl.sh
 
-chown -R www-data:www-data /var/www/html
+find /var/www/app \
+     -not -path '/var/www/app/vendor/*' \
+     -exec chown -v www-data:www-data {} +
 
 exec "$@"
