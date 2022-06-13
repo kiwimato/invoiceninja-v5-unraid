@@ -21,4 +21,6 @@ php artisan config:cache
 
 /usr/local/bin/genssl.sh
 
+chown -R www-data:www-data /var/www/html
+
 exec "$@"
