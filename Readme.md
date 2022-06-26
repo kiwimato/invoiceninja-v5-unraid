@@ -24,6 +24,11 @@ If you already have Invoice Ninja v4 on UnRAID:
    
 ## Troubleshooting
 
+### Logo
+The logo should load in PDFs, and it's fixed by routing the exposed Docker port to internal 443 and also overriding the 
+domain name to localhost which is extracted from `APP_URL`.
+In case it doesn't work, feel free to open an issue
+
 ### memory_limit
 In case the container dies due to memory_limit errors similar to:
 ```
