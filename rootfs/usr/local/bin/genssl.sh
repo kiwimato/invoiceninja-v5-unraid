@@ -1,5 +1,9 @@
 #!/bin/sh
 SSL_HOSTNAME=${SSL_HOSTNAME:-tower}
+for HOSTNAME in `echo $SSL_HOSTNAME | tr ',' '\n'`;do
+  ALT_DNS_OPT+=" -addext \"subjectAltName = DNS:${HOSTNAME}\""
+done
+
 
 DIR="/etc/nginx/ssl/"
 STORAGE="/var/www/app/storage/certs"
@@ -29,7 +33,7 @@ openssl req -new \
             -nodes \
             -sha256 \
             -days 3650 \
-            -addext "subjectAltName = DNS:${SSL_HOSTNAME}" \
+            $ALT_DNS_OPT \
             -key $STORAGE/invoiceninja.key \
             << ANSWERS > $STORAGE/invoiceninja.crt
 JP
