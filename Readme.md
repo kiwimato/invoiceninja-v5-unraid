@@ -15,13 +15,13 @@ Of course, if you already have a SQL user you can use that or create one specifi
 
 :warning: Trusted SSL certificates are a must for this to work properly, so if you using SWAG you can just copy the certificates from SWAG into `storage/certificates` and replace the existing ones. 
 On the first run, self-signed certificates are automatically generated under this folder if they don't already exist. 
-You can either replace them with SWAG ones, or import the self signed certificates into your preferred browser. More in [SSL certificates](## SSL certificates)
+You can either replace them with SWAG ones, or import the self signed certificates into your preferred browser. More in [SSL certificates](#SSL)
 
 :warning: `APP_NAME` variable MUST be set properly on the first run. If you have to change it for some reason, you will have to DROP the DB and recreate everything, so please make sure to set it up properly from start. 
 It must be a URL, for example: `https://superninja.com:8443`. 
 The automated self signed certificates are generated on this FQDN, but of course SWAG certificate must also match this, otherwise SSL errors will break the UI even if you ignore the certificate error.
 
-## SSL certificates
+## SSL
 I found disabling HTTPS to be quite buggy, so there is a script which will auto generate SSL certificates in `certs/` folder in Storage: `/mnt/user/appdata/invoiceninjav5/storage/certs` on UnRAID level.
 
 A certificate will be created with the `CN` = `$SSL_HOSTNAME` env variable, which has the default value of `Tower`: `invoiceninja.crt` and `invoiceninja.key`. 
