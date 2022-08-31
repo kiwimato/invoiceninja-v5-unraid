@@ -13,11 +13,15 @@ CREATE DATABASE invoiceninja5;
 ```
 Of course, if you already have a SQL user you can use that or create one specifically for Invoiceninja and use that.
 
+### Certificates
 :warning: Trusted SSL certificates are a must for this to work properly, so if you using SWAG you can just copy the certificates from SWAG into `storage/certificates` and replace the existing ones. 
 On the first run, self-signed certificates are automatically generated under this folder if they don't already exist. 
 You can either replace them with SWAG ones, or import the self signed certificates into your preferred browser. More in [SSL certificates](#SSL)
 
+### APP_URL
 :warning: `APP_URL` variable MUST be set properly on the first run. If you have to change it for some reason, you will have to DROP the DB and recreate everything, so please make sure to set it up properly from start. It must be a URL, for example: `https://superninja.com:8443`. 
+
+Note: `APP_URL` env variable should be the form of `https://domain.com[:port]`. For example: `https://supercool.com:8443`
 
 As long as these things above are kept in mind, this should work on the first run.
 
@@ -30,8 +34,6 @@ A certificate will be created with the `CN` = `$SSL_HOSTNAME` env variable, whic
 To properly use InvoiceNinja you'll have to import the certificate in your browser as a CA, otherwise I found requests to fail.
 
 I strongly recommend using LetsEncrypt or SWAG on UnRAID and then you can simply create/overwrite `invoiceninja.crt` with `fullchain.pem` and also the same thing for the key, of course. Just to  clarify, you don't need to route traffic through SWAG, even though you can. Personally, I just copy the certificates from SWAG.
-
-Note: `APP_URL` env variable should be the form of `https://domain.com[:port]`. For example: `https://supercool.com:8443`
 
 Personally, I use SWAG, and I just copy over the certifcates daily by using User Scripts UnRAID plugin:
 ```
