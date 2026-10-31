@@ -24,10 +24,10 @@ jobs:
           last=$(git log -1 --format=%ct)
           age_days=$(( ($(date +%s) - last) / 86400 ))
           echo "Last commit was ${age_days} days ago"
-          # if [ "$age_days" -lt "$MAX_AGE_DAYS" ]; then
-          #   echo "Recent enough, nothing to do"
-          #   exit 0
-          # fi
+          if [ "$age_days" -lt "$MAX_AGE_DAYS" ]; then
+            echo "Recent enough, nothing to do"
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit --allow-empty -m "Keepalive: no activity for ${age_days} days"
