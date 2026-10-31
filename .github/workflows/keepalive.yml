@@ -1,18 +1,34 @@
-name: Github Action with a cronjob trigger
+name: Keepalive
 on:
   schedule:
     - cron: "0 0 * * *"
+  workflow_dispatch:
+
 jobs:
-  main-job:
-    name: Main Job
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-  keepalive-job:
-    name: Keepalive Workflow
+  keepalive:
+    name: Keepalive
     runs-on: ubuntu-latest
     permissions:
-      actions: write
+      contents: write
+    env:
+      # GitHub disables scheduled workflows after 60 days without activity,
+      # so push an empty commit once the last one is older than this.
+      MAX_AGE_DAYS: 45
     steps:
       - uses: actions/checkout@v4
-      - uses: gautamkrishnar/keepalive-workflow@v2
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Push empty commit if the repo has been quiet
+        run: |
+          last=$(git log -1 --format=%ct)
+          age_days=$(( ($(date +%s) - last) / 86400 ))
+          echo "Last commit was ${age_days} days ago"
+          if [ "$age_days" -lt "$MAX_AGE_DAYS" ]; then
+            echo "Recent enough, nothing to do"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit --allow-empty -m "Keepalive: no activity for ${age_days} days"
+          git push origin HEAD:main
