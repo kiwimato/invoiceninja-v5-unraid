@@ -15,7 +15,7 @@ jobs:
       # so push an empty commit once the last one is older than this.
       MAX_AGE_DAYS: 45
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           ref: main
           fetch-depth: 1
